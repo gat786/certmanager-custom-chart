@@ -1,0 +1,14 @@
+global:
+  leaderElection:
+    namespace: "certmanager"
+
+installCRDs: true
+
+webhook:
+  networkPolicy:
+    enabled: true
+
+startupapicheck:
+  enabled: true
+  timeout: 5m
+  
