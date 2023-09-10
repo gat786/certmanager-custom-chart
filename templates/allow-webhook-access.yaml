@@ -1,0 +1,39 @@
+## this network policy allows the startupapicheck to talk to the webhook
+## i.e. startupapicheck can send requests to the webhook pod
+{{- if .Values.webhook.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name:  {{ include "startupapicheck.name" . }}-allow-ingress
+  namespace: {{ include "cert-manager.namespace" . }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ include "webhook.name" . }}
+      app.kubernetes.io/name: {{ include "webhook.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: "webhook"
+      {{- include "labels" . | nindent 6 }}
+      {{- with .Values.webhook.podLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            name: {{ include "cert-manager.namespace" . }}
+        podSelector:
+          matchLabels:
+            app: {{ include "startupapicheck.name" . }}
+            app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
+            app.kubernetes.io/instance: {{ .Release.Name }}
+            app.kubernetes.io/component: "startupapicheck"
+            {{- include "labels" . | nindent 12 }}
+            {{- with .Values.startupapicheck.podLabels }}
+            {{- toYaml . | nindent 8 }}
+            {{- end }}
+      ports:
+      - port: 443
+{{- end }}
