@@ -34,6 +34,4 @@ spec:
             {{- with .Values.startupapicheck.podLabels }}
             {{- toYaml . | nindent 8 }}
             {{- end }}
-      ports:
-      - port: 443
 {{- end }}
