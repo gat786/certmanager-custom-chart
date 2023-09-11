@@ -23,7 +23,7 @@ spec:
     - from:
       - namespaceSelector:
           matchLabels:
-            kubernetes.io/metadata.name: {{ include "cert-manager.namespace" . }}
+            name: {{ include "cert-manager.namespace" . }}
         podSelector:
           matchLabels:
             app: {{ include "startupapicheck.name" . }}
@@ -34,4 +34,7 @@ spec:
             {{- with .Values.startupapicheck.podLabels }}
             {{- toYaml . | nindent 8 }}
             {{- end }}
+      ports:
+        - port: 443
+          protocol: TCP
 {{- end }}
