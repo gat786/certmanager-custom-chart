@@ -7,9 +7,7 @@ metadata:
   name:  {{ include "startupapicheck.name" . }}-allow-ingress
   namespace: {{ include "cert-manager.namespace" . }}
 spec:
-  podSelector:
-    matchLabels:
-      app: {{ include "webhook.name" . }}
+  podSelector: {}
   policyTypes:
     - Ingress
   ingress:
