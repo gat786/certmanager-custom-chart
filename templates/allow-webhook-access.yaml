@@ -14,7 +14,7 @@ spec:
     - Ingress
   ingress:
     - from:
-      - namespaceSelector:
+      - podSelector:
           matchLabels:
-            kubernetes.io/metadata.name: {{ include "cert-manager.namespace" . }}
+            app: {{ include "startupapicheck.name" . }}
 {{- end }}
