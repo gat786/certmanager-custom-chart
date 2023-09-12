@@ -17,4 +17,7 @@ spec:
       - podSelector:
           matchLabels:
             app: {{ include "startupapicheck.name" . }}
+      ports:
+        - protocol: TCP
+          port: 443
 {{- end }}
