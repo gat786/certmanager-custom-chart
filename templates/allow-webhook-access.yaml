@@ -12,9 +12,7 @@ spec:
     - Ingress
   ingress:
     - from:
-      - namespaceSelector:
-          matchLabels:
-            kubernetes.io/metadata.name: {{ include "cert-manager.namespace" . }}
+      - podSelector: {}
       ports:
         - protocol: TCP
           port: 443
