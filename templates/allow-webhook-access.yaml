@@ -16,5 +16,5 @@ spec:
     - from:
       - namespaceSelector:
           matchLabels:
-            name: {{ include "cert-manager.namespace" . }}
+            kubernetes.io/metadata.name: certmanager
 {{- end }}
