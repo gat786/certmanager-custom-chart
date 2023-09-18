@@ -24,16 +24,4 @@ spec:
       - namespaceSelector:
           matchLabels:
             name: {{ include "cert-manager.namespace" . }}
-        podSelector:
-          matchLabels:
-            app: {{ include "startupapicheck.name" . }}
-            app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
-            app.kubernetes.io/instance: {{ .Release.Name }}
-            app.kubernetes.io/component: "startupapicheck"
-            {{- include "labels" . | nindent 12 }}
-            {{- with .Values.startupapicheck.podLabels }}
-            {{- toYaml . | nindent 8 }}
-            {{- end }}
-      ports:
-      - port: 443
 {{- end }}
